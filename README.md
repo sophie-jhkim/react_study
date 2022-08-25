@@ -15,7 +15,7 @@
 
 ## Typescript
 
-- TodoApp [README](https://yona.nextinnovation.kr/study/jihye-kim-komsco-next-study/code/master/README.md)
+- TodoApp [README](https://yona.nextinnovation.kr/study/jihye-kim-komsco-next-study/code/master/typescript/README.md)
 
 ## 실행
 
