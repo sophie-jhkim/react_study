@@ -42,3 +42,53 @@
   transform: scale(0.9);
   box-shadow: 0 0 5px #000;
 }
+
+.todos{
+  display: flex;
+  /* grid-template-columns: 1fr 1fr 1fr; */
+  justify-content: space-evenly;
+  width: 90%;
+  flex-wrap: wrap;
+}
+.icon{
+  margin-left: 10px;
+  font-size: 25px;
+  cursor:pointer
+}
+
+.todos__single{
+  display: flex;
+  width: 29.5%;
+  border-radius: 5px;
+  padding:20px;
+  margin-top:15px;
+  background: url(https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?w=1800&t=st=1661478022~exp=1661478622~hmac=a64e6985b9982781713b4b664d5f339a39bd86bca645ab5124aa4e7e0ccf0953) center center/100% no-repeat;
+}
+
+.todos__single--text{
+  flex:1;
+  padding:5px;
+  border: none;
+  font-size: 20px;
+}
+.todos__single--text:focus{
+  outline: none;
+}
+@media (max-width:1200px){
+  .todos__single{
+    width: 40%;
+  }
+}
+
+@media (max-width:700px) {
+  .input{
+    width: 95%;
+  }
+  .todos{
+    width: 95% ;
+  }
+  .todos__single{
+    width: 100%;
+  }
+
+}
