@@ -13,9 +13,9 @@
   - visual studio code
   - node 16.17.0
 
-## Typescript
+## README
 
-- TodoApp [README](https://yona.nextinnovation.kr/study/jihye-kim-komsco-next-study/code/master/typescript/README.md)
+- Typescript(TodoApp) [README](https://yona.nextinnovation.kr/study/jihye-kim-komsco-next-study/code/master/typescript/README.md)
 - Nextjs [README](https://yona.nextinnovation.kr/study/jihye-kim-komsco-next-study/code/master/nextjs/README.md)
 
 ## 실행
