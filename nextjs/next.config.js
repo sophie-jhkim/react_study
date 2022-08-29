@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -9,7 +10,11 @@ const nextConfig = {
     return [
       {
         source: "/api/movies",
-        destination: ``,
+        destination: `http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.API_KEY}&targetDt=20220825`,
+      },
+      {
+        source: "/api/animals/:type",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}?serviceKey=${process.env.NEXT_PUBLIC_API_KEY}&_type=:type`,
       },
     ];
   },
