@@ -69,7 +69,7 @@ export default function App({ Component, pageProps }) {
 }
 ```
 
-### redirect와 rewrite 하기
+### redirect와 rewrite 하기 (client side)
 
 넥스트js에서 리다이렉트를 사용하기 위해서는 next.config.js를 설정해야한다.
 
@@ -97,7 +97,53 @@ return [
 
 **이때 중요한건 반드시 서버를 재실행해줘야 변경이 적용된다**
 
-#### 넥스트 작업환경 설정
+### SSR로 API 호출하기
+
+**getServerSideProps** Next내장함수이기때문에 반드시 이 이름으로 사용해야 한다.
+이렇게 호출할 경우 실제 SSR이기때문에 loading bar를 사용할 필요가 없으며 SEO에 적합하다.
+
+```jsx
+export async function getServerSideProps() {
+  const { response } = await (
+    await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}&serviceKey=${process.env.SERVICE_KEY}`
+    )
+  ).json();
+  return {
+    props: {
+      response,
+    },
+  };
+}
+```
+
+이렇게 export한 props는 해당 컴포넌트에서
+
+```jsx
+// 　　　　　　　　　　　　　　　　↓　이렇게 매개변수처럼 받아서 사용할 수 있다
+export default function Home({ response }) {
+  // ...code
+}
+```
+
+### [id].js 파일명 자동 라우팅
+
+next는 page내에 있는 페이지들에 대해 자동 라우터가 설정되는데 movie폴더 안에 [id].js라는 파일에 작업 하면 자동으로 movie/:id url의 영화 상세페이지로 라우팅 된다. 그리고 상세페이지에서는 router를 사용해 query.id (이때 쿼리파람(id)는 저장한 파일명이다)를 사용할 수 있다.
+
+### 넥스트 작업환경 설정
+
+- env 접두어
+  VUE env에서 사용하는 'VUE_APP\_'와 같은 접두어가 next에도 있다.
+
+```
+NEXT_PUBLIC_API_URL=http://apis.data.go.kr/
+SERVICE_KEY=blahblah
+```
+
+**\"NEXT_PUBLIC\_\"** 접두어를 붙인경우 Client side, 일반 사용자에게도 공개 가능한 소스라고 할 수 있고, view페이지에서도 사용할 수 있다. 그렇지 않은경우 nextjs의 서버사이드에서만 접근 가능하며 실제로 콘솔로 찍어도 undefined로 찍힌다. \
+그러나 위 [SSR API호출](###SSR로-API-호출하기)의 경우 SERVICE_KEY값이 제대로 넘어가 api가 정상 호출 된다
+
+**노출 불가한 소스는 반드시 .gitignore에 추가한다**
 
 - 2022년 8월 현재 node 16.17.0버전에서 create-next-app 실행했는데 바벨 설정이 제대로 안되어있어 컴포넌트 *import*에 빨간 밑줄 warning이뜬다
 - 해결방법은 아래 파일 두개를 생성 및 설정하면 된다.
