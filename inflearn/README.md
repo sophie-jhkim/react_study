@@ -80,7 +80,34 @@ const About = () => {
 
 ### Layout
 
-리액트의 <Outlet>을 사용한다. vue의 router-vue 같은 느낌..
+리액트의 \<Outlet\>을 사용한다. vue의 router-vue 같은 느낌..
+
+```jsx
+// components/Layout.tsx
+return (
+  <div style={{ border: 2, padding: 2, borderColor: 'black', borderStyle: 'dashed', margin: 5, width: 500, height: 500 }}>
+    <Outlet />
+  </div>
+);
+```
+
+그리고 Application.tsx에서
+
+```jsx
+// Application.tsx
+return (
+  <BrowserRouter>
+    <Routes>
+      <Route path="layout" element={<Layout />}>
+        <Route index element={<About />} />
+        <Route path=":number" element={<About />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
+);
+```
+
+근데 이렇게 하면 /layout 경로로 들어가야됨.
 
 ### Link 컴포넌트, useNavigate를 사용한 페이지 이동
 
