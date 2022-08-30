@@ -95,6 +95,19 @@ return [
 // *을 붙이면 뒤에 오는 모든 파라미터를 받아올 수 있다.
 ```
 
+redirects의 경우 실제로 source주소가 노출 된 후 destination주소로 이동되는데 destination주소를 아예 노출하지 않으면서 redirect하거나 프로젝트 내부에서 노출되면 안되는 destination주소(예를 들면 특정 api url이라던가 key값을 포함하는 주소)를 전역변수처럼 사용할때 rewrites를 사용한다고 할 수 있다.
+
+```jsx
+async rewrites() {
+    return [
+      {
+        source: "/api/movies",
+        destination: `http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=${process.env.API_KEY}&targetDt=20220825`,
+      },
+    ];
+  },
+```
+
 **이때 중요한건 반드시 서버를 재실행해줘야 변경이 적용된다**
 
 ### SSR로 API 호출하기
@@ -181,7 +194,7 @@ SERVICE_KEY=blahblah
 ```
 
 **\"NEXT_PUBLIC\_\"** 접두어를 붙인경우 Client side, 일반 사용자에게도 공개 가능한 소스라고 할 수 있고, view페이지에서도 사용할 수 있다. 그렇지 않은경우 nextjs의 서버사이드에서만 접근 가능하며 실제로 콘솔로 찍어도 undefined로 찍힌다. \
-그러나 위 [SSR API호출](###SSR로-API-호출하기)의 경우 SERVICE_KEY값이 제대로 넘어가 api가 정상 호출 된다
+그러나 위 [SSR API호출](###-SSR로-API-호출하기)의 경우 SERVICE_KEY값이 제대로 넘어가 api가 정상 호출 된다
 
 **노출 불가한 소스는 반드시 .gitignore에 추가한다**
 
