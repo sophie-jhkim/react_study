@@ -5,20 +5,41 @@ import { useRouter } from "next/router";
 
 export default function Home({ response }) {
   const router = useRouter();
-  const onClick = (id) => {
+  const onClick = (id, kindCd) => {
+    /**
     router.push(`/animals/${id}`);
+    query 같이 보내는 방법
+
+     router.push({pathname: `/animals/${id}`,  query : {id: id, title: title}});
+     query로 보낼경우 url에 다 노출되나 UI적으로 별로 좋지 않음. 아래 방법으로 숨길 수 있다.
+     맨 뒤에 url만 노출된다
+
+    router.push(
+      { pathname: `/animals/${id}`, query: { kindCd: kindCd } },
+      `/animals/${id}`
+    );
+     */
+    // [...params].js 사용할 경우
+    router.push({ pathname: `/animals/${kindCd}/${id}` });
   };
   return (
     <div className="container">
       <Seo title="Home"></Seo>
       {response.body.items.item?.map((animal) => (
         <div
-          onClick={() => onClick(animal.desertionNo)}
+          onClick={() => onClick(animal.desertionNo, animal.kindCd)}
           className="animal"
           key={animal.desertionNo}
         >
           <div className="img_wrap">
-            <Link href={`/animals/${animal.desertionNo}`}>
+            {/* <Link
+              href={{
+                pathname: `/animals/${animal.desertionNo}`,
+                query: { kindCd: animal.kindCd },
+              }}
+              as={`/animals/${animal.desertionNo}`}
+            > */}
+            <Link href={`/animals/${animal.kindCd}/${animal.desertionNo}`}>
               <img src={animal.filename} />
             </Link>
           </div>
@@ -47,7 +68,8 @@ export default function Home({ response }) {
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 20px;
-            padding: 20px;
+            margin: 15px;
+            padding: 15px;
             height: 150px;
           }
           .animal .img_wrap {
@@ -56,6 +78,7 @@ export default function Home({ response }) {
             overflow: hidden;
             border-radius: 15px;
             position: relative;
+            cursor: pointer;
           }
           .animal .img_wrap img {
             width: 100%;
