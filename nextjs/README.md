@@ -194,7 +194,7 @@ SERVICE_KEY=blahblah
 ```
 
 **\"NEXT_PUBLIC\_\"** 접두어를 붙인경우 Client side, 일반 사용자에게도 공개 가능한 소스라고 할 수 있고, view페이지에서도 사용할 수 있다. 그렇지 않은경우 nextjs의 서버사이드에서만 접근 가능하며 실제로 콘솔로 찍어도 undefined로 찍힌다. \
-그러나 위 [SSR API호출](#yb-header-SSR로-API-호출하기)의 경우 SERVICE_KEY값이 제대로 넘어가 api가 정상 호출 된다
+그러나 위 [SSR API호출](#yb-header-ssr로-api-호출하기)의 경우 SERVICE_KEY값이 제대로 넘어가 api가 정상 호출 된다
 
 **노출 불가한 소스는 반드시 .gitignore에 추가한다**
 
