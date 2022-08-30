@@ -2,7 +2,11 @@ import { useRouter } from "next/router";
 export default function AnimalId() {
   const router = useRouter();
   console.log(router);
-  return "animal details";
+  return (
+    <div>
+      <h4> {router.query.kindCd || "Loading..."} </h4>
+    </div>
+  );
 }
 
 export async function getServerSideProps() {
