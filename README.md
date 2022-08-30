@@ -15,6 +15,7 @@
 
 ## README
 
+- inflearn(react/typescript) [README](https://yona.nextinnovation.kr/study/jihye-kim-komsco-next-study/code/master/inflearn/README.md)
 - Typescript(TodoApp) [README](https://yona.nextinnovation.kr/study/jihye-kim-komsco-next-study/code/master/typescript/README.md)
 - Nextjs [README](https://yona.nextinnovation.kr/study/jihye-kim-komsco-next-study/code/master/nextjs/README.md)
 
@@ -33,4 +34,5 @@ npm run start
 
 - [ES7+ React/Redux/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 
-단축키 **rafce**로 새 tsx컴포넌트 자동 완성 확장 프로그램
+단축키 **rafce**로 새 tsx컴포넌트 자동 완성(스니펫) 확장 프로그램\
+react arrow functional component export
