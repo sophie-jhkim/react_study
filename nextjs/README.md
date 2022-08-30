@@ -126,9 +126,49 @@ export default function Home({ response }) {
 }
 ```
 
+\* 넥스트의 getServerSideProps은 context를 기본으로 제공하는데
+
+```jsx
+export async function getServerSideProps(context) {
+  console.log(constext);
+  return {
+    props: {},
+  };
+}
+```
+
+위 코드를 실행할 경우 터미널에 params를 포함한 context가 찍히는걸 확인할수 있다.
+(이게 터미널에만찍히는 이유는 SSR이라서 그런가...?)
+
 ### [id].js 파일명 자동 라우팅
 
-next는 page내에 있는 페이지들에 대해 자동 라우터가 설정되는데 movie폴더 안에 [id].js라는 파일에 작업 하면 자동으로 movie/:id url의 영화 상세페이지로 라우팅 된다. 그리고 상세페이지에서는 router를 사용해 query.id (이때 쿼리파람(id)는 저장한 파일명이다)를 사용할 수 있다.
+next는 page내에 있는 페이지들에 대해 자동 라우터가 설정되는데 movie폴더 안에 [id].js라는 파일에 작업 하면 자동으로 movie/:id url의 영화 상세페이지로 라우팅 된다. 그리고 상세페이지에서는 router를 사용해 query.id (이때 쿼리파람(id)는 저장한 파일명이다)를 사용할 수 있다.\
+ \* [id].js로 할경우 단순히 id만 받아오지만 [...params].js로 할 경우 뒤에 오는 모든 파라미터를 배열으로 받을 수 있다.
+
+### Link및 router.push를 사용한 페이지 이동
+
+넥스트의 경우 자체제공하는 Link컴포넌트를 활용해 페이지 이동을 할 수 있다. 페이지 이동과 함께 query를 보낼경우 아래와 같이 보낸다. 이때 그냥 query로만 보낼경우 url에 노출되는데 UI상 마스킹하고 싶을 경우 아래와같이 as 속성을 사용할 수 있다.
+
+```jsx
+<Link
+  href={{
+    pathname: `/animals/${animal.desertionNo}`,
+    query: { kindCd: animal.kindCd },
+  }}
+  as={`/animals/${animal.desertionNo}`}
+>
+  <img src={animal.filename} />
+</Link>;
+
+// onClick사용 router.push를 이용할 경우
+router.push(
+  { pathname: `/animals/${id}`, query: { kindCd: kindCd } },
+  `/animals/${id}`
+);
+// 마지막 옵션으로 넣은 url이 실제 화면에 보여지는 url이 된다.
+```
+
+\*참고로 Link태그의 경우 단일 자식요소만을 가질 수 있으며 parent container에 router.push로 마스킹을 한 뒤, 특정 자식 요소에 똑같은 주소로 라우팅을 따로 걸 경우 as 옵션을 주지 않아도 해당 마스킹이 그대로 적용된다
 
 ### 넥스트 작업환경 설정
 
