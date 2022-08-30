@@ -139,7 +139,7 @@ interface Props {
 
 input요소에 focus등의 기능을 사용하기 위해서는 ref 속성과 useRef 기능을 사용할 수 있다.
 
-```typescript
+```tsx
 // InputField.tsx
 
 // code...
