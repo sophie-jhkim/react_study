@@ -126,3 +126,15 @@ const navigate = useNavigate();
 ```
 
 Link 컴포넌트의 경우 html \<a\>태그와 유사하지만 전체페이지를 리로드하는 것이 아닌 필요한 부분만 리로드 한다
+
+### SSR
+
+react-dom/server 를 쓴다는데... SSR때문에 next쓰는거 아닌가...? 이건 pass.
+
+### express로 SSR하기
+
+흠... 이것도 pass\
+\*꿀팁
+
+- 포스트맨으로 SSR 확인하기. 해당 url으로 get request를 보내면 SSR일경우 온전한 html이 리턴된다.
+- 또는 브라우저에서 자바스크립트를 disabled로 설정한다. 크롬의 경우 f12 > f1 setting창 하단에 checkbox가있음. 그리고 새로고침하면 SSR부분은 그대로 나오는데 자바스크립트가 반영된 부분은 보이지 않게된다
