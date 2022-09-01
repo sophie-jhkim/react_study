@@ -1,47 +1,27 @@
-import { useEffect, useState } from "react";
-import Seo from "./Seo";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { useEffect, useState } from 'react';
+import Seo from './Seo';
+// 공공데이터 유기동물API로 적용해보려고 했으나 next.config.js에서 rewrites로 url이랑 api_key 숨기는(?) 과정에서 api호출 자체가 안됨(serviceKey가 제대로 안넘어가는듯...)
 
-export default function Home({ response }) {
-  const router = useRouter();
-  const onClick = (id, kindCd) => {
-    /**
-    router.push(`/animals/${id}`);
-    query 같이 보내는 방법
-
-     router.push({pathname: `/animals/${id}`,  query : {id: id, title: title}});
-     query로 보낼경우 url에 다 노출되나 UI적으로 별로 좋지 않음. 아래 방법으로 숨길 수 있다.
-     맨 뒤에 url만 노출된다
-
-    router.push(
-      { pathname: `/animals/${id}`, query: { kindCd: kindCd } },
-      `/animals/${id}`
-    );
-     */
-    // [...params].js 사용할 경우
-    router.push({ pathname: `/animals/${kindCd}/${id}` });
-  };
+export default function Home() {
+  const [animals, setAnimals] = useState();
+  const key = process.env.NEXT_PUBLIC_API_KEY;
+  const url = process.env.NEXT_PUBLIC_API_URL;
+  console.log('key::::::', key, url);
+  useEffect(() => {
+    (async () => {
+      const { response } = await (await fetch(`/api/animals`)).json();
+      console.log('response:::::::', response);
+      setAnimals(response.body.items.item);
+    })();
+  }, []);
   return (
     <div className="container">
       <Seo title="Home"></Seo>
-      {response.body.items.item?.map((animal) => (
-        <div
-          onClick={() => onClick(animal.desertionNo, animal.kindCd)}
-          className="animal"
-          key={animal.desertionNo}
-        >
+      {!animals && <h4>Loading...</h4>}
+      {animals?.map((animal) => (
+        <div className="animal" key={animal.desertionNo}>
           <div className="img_wrap">
-            {/* <Link
-              href={{
-                pathname: `/animals/${animal.desertionNo}`,
-                query: { kindCd: animal.kindCd },
-              }}
-              as={`/animals/${animal.desertionNo}`}
-            > */}
-            <Link href={`/animals/${animal.kindCd}/${animal.desertionNo}`}>
-              <img src={animal.filename} />
-            </Link>
+            <img src={animal.filename} />
           </div>
           <div>
             <ul>
@@ -64,12 +44,10 @@ export default function Home({ response }) {
       <style jsx>
         {`
           .animal {
-            width: 100%;
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 20px;
-            margin: 15px;
-            padding: 15px;
+            padding: 20px;
             height: 150px;
           }
           .animal .img_wrap {
@@ -78,7 +56,6 @@ export default function Home({ response }) {
             overflow: hidden;
             border-radius: 15px;
             position: relative;
-            cursor: pointer;
           }
           .animal .img_wrap img {
             width: 100%;
@@ -106,15 +83,4 @@ export default function Home({ response }) {
   );
 }
 
-export async function getServerSideProps() {
-  const { response } = await (
-    await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}&serviceKey=${process.env.SERVICE_KEY}`
-    )
-  ).json();
-  return {
-    props: {
-      response,
-    },
-  };
-}
+// export async function getServerSideProps() {}
