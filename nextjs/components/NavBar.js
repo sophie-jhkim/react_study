@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 export default function NavBar() {
   const router = useRouter();
   return (
@@ -7,16 +7,24 @@ export default function NavBar() {
       <img src="/vercel.svg" />
       <ul>
         <li>
-          {/* nextjs에서는 링크를 걸기위해 a태그 대신 Link컴포넌트를 사용할 수 있는데 대신 일반적인 태그처럼 사용할 수 없기때문에 class명이나 스타일을 쓰기위해 Link태그 안에 a태그를 사용한다.  */}{" "}
+          {/* nextjs에서는 링크를 걸기위해 a태그 대신 Link컴포넌트를 사용할 수 있는데 대신 일반적인 태그처럼 사용할 수 없기때문에 class명이나 스타일을 쓰기위해 Link태그 안에 a태그를 사용한다. nextjs 공식 문서의 권장 사항이기도 하다. */}
           <Link href="/">
-            <a className={router.pathname === "/" ? "active" : ""}> Home </a>
+            <a className={router.pathname === '/' ? 'active' : ''}> Home </a>
           </Link>
         </li>
         <li>
-          <Link href="/about">
-            <a className={router.pathname === "/about" ? "active" : ""}>
-              About
-            </a>
+          <Link href="/cats">
+            <a className={router.pathname === '/cats' ? 'active' : ''}>Cats</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/dogs">
+            <a className={router.pathname === '/dogs' ? 'active' : ''}>Dogs</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/others">
+            <a className={router.pathname === '/others' ? 'active' : ''}>Others</a>
           </Link>
         </li>
       </ul>
@@ -36,8 +44,7 @@ export default function NavBar() {
           padding-top: 20px;
           padding-bottom: 10px;
           padding-left: 0;
-          box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-            rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
           list-style: none;
         }
         img {
